@@ -56,7 +56,7 @@
                 <img src="images/logo.png" alt="AfriStyle Hub Logo" class="mb-3" width="150">
                 <h2>Who We Are</h2>
                 <p class="text-muted">
-                    AfriStyle Hub is your go-to online store for premium African wear. We specialize in
+                    AfriStyle Hub is your go-to online store for premium African wear. We specialize in well choosen,
                     beautifully designed, high-quality African attire that celebrates culture, tradition, and style.
                 </p>
 
