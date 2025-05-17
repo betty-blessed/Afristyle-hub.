@@ -41,7 +41,7 @@ if (!$product) {
                 <h2><?php echo htmlspecialchars($product['product_name']); ?></h2>
                 <p class="text-muted">Category: <?php echo htmlspecialchars($product['category_name']); ?></p>
                 <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
-                <h4 class="text-success">$<?php echo number_format($product['price'], 2); ?></h4>
+                <h4 class="text-success">Ksh <?php echo number_format($product['price'], 2); ?></h4>
                 <form action="add_to_cart.php" method="POST">
                     <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
                     <div class="mb-3">

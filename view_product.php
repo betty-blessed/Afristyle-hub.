@@ -54,7 +54,7 @@ $result = $stmt->get_result();
                 <th>Image</th>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Price ($)</th>
+                <th>Price (Ksh)</th>
                 <th>Stock</th>
                 <th>Actions</th>
             </tr>

@@ -1,7 +1,8 @@
 <?php
 include 'includes/connection.php';
-// Fetch orders along with customer details
-$query = "SELECT o.order_id, o.user_id, u.full_name, o.total_amount, o.order_status, o.created_at
+
+// Fetch orders along with customer details and payment status
+$query = "SELECT o.order_id, o.user_id, u.full_name, o.total_amount, o.payment_status, o.order_status, o.created_at
           FROM orders o
           JOIN users u ON o.user_id = u.user_id
           ORDER BY o.created_at DESC";
@@ -30,7 +31,8 @@ $result = $conn->query($query);
             <tr>
                 <th>Order ID</th>
                 <th>Customer</th>
-                <th>Total Amount ($)</th>
+                <th>Total Amount (KSH)</th>
+                <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Order Date</th>
                 <th>Actions</th>
@@ -42,16 +44,14 @@ $result = $conn->query($query);
                     <td><?php echo $row['order_id']; ?></td>
                     <td><?php echo htmlspecialchars($row['full_name']); ?></td>
                     <td><?php echo number_format($row['total_amount'], 2); ?></td>
+                    <td><span class="badge bg-success">Paid</span></td>
                     <td>
-                        <form method="POST" action="update_order.php">
-                            <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
-                            <select name="order_status" class="form-select" onchange="this.form.submit()">
-                                <option value="processing" <?php if ($row['order_status'] == 'processing') echo 'selected'; ?>>Processing</option>
-                                <option value="shipped" <?php if ($row['order_status'] == 'shipped') echo 'selected'; ?>>Shipped</option>
-                                <option value="delivered" <?php if ($row['order_status'] == 'delivered') echo 'selected'; ?>>Delivered</option>
-                                <option value="cancelled" <?php if ($row['order_status'] == 'cancelled') echo 'selected'; ?>>Cancelled</option>
-                            </select>
-                        </form>
+                        <select name="order_status" class="form-select status-update" data-order-id="<?php echo $row['order_id']; ?>">
+                            <option value="processing" <?php if ($row['order_status'] == 'processing') echo 'selected'; ?>>Processing</option>
+                            <option value="shipped" <?php if ($row['order_status'] == 'shipped') echo 'selected'; ?>>Shipped</option>
+                            <option value="delivered" <?php if ($row['order_status'] == 'delivered') echo 'selected'; ?>>Delivered</option>
+                            <option value="cancelled" <?php if ($row['order_status'] == 'cancelled') echo 'selected'; ?>>Cancelled</option>
+                        </select>
                     </td>
                     <td><?php echo $row['created_at']; ?></td>
                     <td>
@@ -83,6 +83,27 @@ $result = $conn->query($query);
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".status-update").change(function () {
+            var order_id = $(this).data("order-id");
+            var new_status = $(this).val();
+            
+            $.ajax({
+                url: "update_order.php",
+                type: "POST",
+                data: { order_id: order_id, order_status: new_status },
+                success: function (response) {
+                    alert("Order status updated successfully!");
+                },
+                error: function () {
+                    alert("Error updating order status.");
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

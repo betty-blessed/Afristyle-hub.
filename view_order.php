@@ -79,7 +79,7 @@ $items_result = $stmt_items->get_result();
             <tr>
                 <th>Product Name</th>
                 <th>Quantity</th>
-                <th>Price ($)</th>
+                <th>Price (Ksh)</th>
             </tr>
         </thead>
         <tbody>

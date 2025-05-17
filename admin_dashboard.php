@@ -57,6 +57,7 @@ for ($i = 1; $i <= 12; $i++) {
                     <li class="nav-item"><a class="nav-link" href="manage_products.php">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="manage_orders.php">Orders</a></li>
                     <li class="nav-item"><a class="nav-link" href="reports.php">Records</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-chat.php">chat</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-danger text-white" href="logout.php">Logout</a></li>
                 </ul>
             </div>
@@ -116,7 +117,7 @@ for ($i = 1; $i <= 12; $i++) {
             data: {
                 labels: <?php echo json_encode($months); ?>,
                 datasets: [{
-                    label: 'Revenue ($)',
+                    label: 'Revenue (Ksh)',
                     data: <?php echo json_encode($chart_data); ?>,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',

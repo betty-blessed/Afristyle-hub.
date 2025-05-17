@@ -75,9 +75,9 @@
                 </ul>
 
                 <h3 class="mt-4">Contact Us</h3>
-                <p><i class="fas fa-envelope"></i> Email: <b>carlosbetty2015@gmail.com</b></p>
-                <p><i class="fas fa-phone"></i> Mobile: <b>0720973441</b></p>
-                <p><i class="fas fa-map-marker-alt"></i> Location: <b>Nairobi Town, Opposite Afya Centre</b></p>
+                <p><i class="fas fa-envelope"></i> Email: <b>afristyle@gmail.com</b></p>
+                <p><i class="fas fa-phone"></i> Mobile: <b>0729173041</b></p>
+                <p><i class="fas fa-map-marker-alt"></i> Location: <b>Nairobi, Moi Avenue, Maua Building, Opposite Top Notch Hotel</b></p>
 
                 <div class="mt-4">
                     <a href="register.php" class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</a>

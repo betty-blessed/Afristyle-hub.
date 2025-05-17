@@ -9,20 +9,27 @@ if (!isset($_GET['order_id'])) {
 }
 
 $order_id = $_GET['order_id'];
+$user_id = $_SESSION['user_id'] ?? null;
 
-// Fetch order details
-$order_query = $conn->prepare("SELECT * FROM orders WHERE order_id = ? AND user_id = ?");
-$order_query->bind_param("ii", $order_id, $_SESSION['user_id']);
-$order_query->execute();
-$order_result = $order_query->get_result();
-
-if ($order_result->num_rows === 0) {
-    header("Location: shop.php");
+// Ensure user is logged in
+if (!$user_id) {
+    header("Location: login.php");
     exit();
 }
 
+// Fetch order details
+$order_query = $conn->prepare("SELECT * FROM orders WHERE order_id = ? AND user_id = ?");
+$order_query->bind_param("ii", $order_id, $user_id);
+$order_query->execute();
+$order_result = $order_query->get_result();
 $order = $order_result->fetch_assoc();
 $order_query->close();
+
+// If no order found, redirect
+if (!$order) {
+    header("Location: shop.php");
+    exit();
+}
 
 // Fetch order items
 $item_query = $conn->prepare("SELECT oi.*, p.product_name, p.image FROM order_items oi 
@@ -40,6 +47,10 @@ $payment_query->execute();
 $payment_result = $payment_query->get_result();
 $payment = $payment_result->fetch_assoc();
 $payment_query->close();
+
+// If payment record is missing, set default
+$payment_status = $payment ? ucfirst($payment['payment_status']) : 'Not Found';
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +67,7 @@ $payment_query->close();
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">AfriStyle Hub</a>
+            <a class="navbar-brand" href="customer_dashboard.php">AfriStyle Hub</a>
             <a href="shop.php" class="btn btn-primary me-2">Continue Shopping</a>
             <a href="customer_dashboard.php" class="btn btn-success">Dashboard</a>
         </div>
@@ -67,9 +78,9 @@ $payment_query->close();
 
         <div class="alert alert-success text-center">
             <h4>Thank you for your order!</h4>
-            <p>Your order ID is <strong>#<?php echo $order['order_id']; ?></strong></p>
-            <p>Order Status: <strong><?php echo ucfirst($order['order_status']); ?></strong></p>
-            <p>Payment Status: <strong><?php echo ucfirst($payment['payment_status']); ?></strong></p>
+            <p>Your order ID is <strong>#<?php echo htmlspecialchars($order['order_id']); ?></strong></p>
+            <p>Order Status: <strong><?php echo htmlspecialchars(ucfirst($order['order_status'])); ?></strong></p>
+            <p>Payment Status: <strong><?php echo htmlspecialchars($payment_status); ?></strong></p>
         </div>
 
         <h4>Order Summary</h4>
@@ -87,7 +98,7 @@ $payment_query->close();
                 <?php while ($item = $item_result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($item['product_name']); ?></td>
-                        <td><img src="images/<?php echo $item['image']; ?>" width="50"></td>
+                        <td><img src="images/<?php echo htmlspecialchars($item['image']); ?>" width="50"></td>
                         <td>$<?php echo number_format($item['price'], 2); ?></td>
                         <td><?php echo $item['quantity']; ?></td>
                         <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>

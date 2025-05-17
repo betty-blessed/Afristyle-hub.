@@ -59,7 +59,7 @@ $categories = $category_result->fetch_all(MYSQLI_ASSOC);
                     <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
-                    <th>Price ($)</th>
+                    <th>Price (Ksh)</th>
                     <th>Stock</th>
                     <th>Actions</th>
                 </tr>
@@ -103,7 +103,7 @@ $categories = $category_result->fetch_all(MYSQLI_ASSOC);
                             <textarea class="form-control" name="description" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Price ($)</label>
+                            <label class="form-label">Price (Ksh)</label>
                             <input type="number" step="0.01" class="form-control" name="price" required>
                         </div>
                         <div class="mb-3">

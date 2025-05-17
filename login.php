@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <div class="container mt-5">
-    <div class="running-text">Welcome Back to AfriStyle Hub!</div>
+    <div class="running-text">Welcome to AfriStyle Hub!</div>
 
     <div class="row justify-content-center">
         <div class="col-md-6">

@@ -103,7 +103,7 @@ $result = $stmt->get_result();
                                 <div class="card-body">
                                     <h5 class="card-title"> <?php echo htmlspecialchars($row['product_name']); ?> </h5>
                                     <p class="card-text"> <?php echo substr(htmlspecialchars($row['description']), 0, 100) . '...'; ?> </p>
-                                    <p class="card-text fw-bold">$<?php echo number_format($row['price'], 2); ?></p>
+                                    <p class="card-text fw-bold">Ksh <?php echo number_format($row['price'], 2); ?></p>
                                     <p class="card-text text-<?php echo $row['stock_quantity'] > 0 ? 'success' : 'danger'; ?>">
                                         <?php echo $row['stock_quantity'] > 0 ? 'In Stock' : 'Out of Stock'; ?>
                                     </p>
